@@ -1,0 +1,6 @@
+# Dictionary of migrations plugins, user the format "<protocol>": "<dockerimage>"
+
+{
+  "imap": "gilleslamiral/imapsync",
+  "zimbra": "leomarangoni/zmzsync"
+}
