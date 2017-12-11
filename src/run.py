@@ -6,11 +6,13 @@ from tasks import tasks
 
 app = Flask(__name__)
 
+# Registering Projects view
 view = ProjectsAPI.as_view('projects_api')
 app.add_url_rule('/projects/', view_func=view, methods=['GET', 'POST'])
 app.add_url_rule('/projects/<id>/', view_func=view, methods=['GET',
                                                              'PUT',
                                                              'DELETE'])
+# Registering Accounts view
 view = AccountsAPI.as_view('accounts_api')
 app.add_url_rule('/projects/<p_id>/accounts/',
                  view_func=view,
@@ -19,7 +21,7 @@ app.add_url_rule('/projects/<p_id>/accounts/<int:a_id>/',
                  view_func=view,
                  methods=['GET', 'PUT', 'DELETE'])
 
-
+# Registering Queue view
 view = QueueAPI.as_view('queue_api')
 app.add_url_rule('/queue/',
                  view_func=view,

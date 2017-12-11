@@ -6,16 +6,18 @@ import threading
 import json
 from model import Projects, Queue
 
-# TODO: Set constructor variables in __init__ parameters and document it
-# TODO: Define "run()" content in isolated methods,
-# like migrate(), check_queue(), update_status()
-# TODO: centralize logger in main program and set as an argument
+# TODO: implement plugins em plugins.json configuration file
 
 plugins = {
     "imap": {
         "image": "gilleslamiral/imapsync",
         "logdir": "/LOG_imapsync",
         "entrypoint": "/usr/bin/imapsync"
+    },
+    "zimbra": {
+        "image": "marangoni/zmzsync",
+        "logdir": "/LOG_zmzsync",
+        "entrypoint": "/usr/bin/zmzsync"
     }
 }
 
@@ -74,7 +76,7 @@ class tasks():
                     threads = threads - running
                     threads = range(0, threads)
                     for thread in threads:
-                        next_account = Queue.objects().first()
+                        next_account = Queue.objects(projectId=project).first()
                         if next_account:
                             index = next_account['index']
                             cmd = next_account['command']
@@ -88,7 +90,7 @@ class tasks():
                                 entrypoint=plugins[protocol]['entrypoint'],
                                 volumes={
                                     "/var/log/hermes/migrations": {
-                                        'bind': plugins[logdir],
+                                        'bind': plugins[protocol]['logdir'],
                                         'mode': 'rw'
                                     }
                                 }

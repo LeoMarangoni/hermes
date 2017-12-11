@@ -1,6 +1,14 @@
 # Dictionary of migrations plugins, user the format "<protocol>": "<dockerimage>"
 
 {
-  "imap": "gilleslamiral/imapsync",
-  "zimbra": "leomarangoni/zmzsync"
+    "imap": {
+        "image": "gilleslamiral/imapsync",
+        "logdir": "/LOG_imapsync",
+        "entrypoint": "/usr/bin/imapsync"
+    },
+    "zimbra": {
+        "image": "marangoni/zmzsync",
+        "logdir": "/LOG_zmzsync",
+        "entrypoint": "/usr/bin/zmzsync"
+    }
 }
