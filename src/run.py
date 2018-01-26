@@ -53,4 +53,4 @@ def index():
 
 if __name__ == '__main__':
     task = tasks()
-    app.run(debug=False, host="127.0.0.1", port=5500)
+    app.run(debug=False, host="127.0.0.1", port=5500, threaded=True)

@@ -22,8 +22,8 @@ class AccountInfo(db.EmbeddedDocument):
 class AccountCredentials(db.EmbeddedDocument):
     user1 = db.StringField(required=True, default="")
     user2 = db.StringField(required=True, default="")
-    password1 = db.StringField(required=True, default="")
-    password2 = db.StringField(required=True, default="")
+    password1 = db.StringField()
+    password2 = db.StringField()
 
 
 class Accounts(db.EmbeddedDocument):
