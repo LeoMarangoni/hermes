@@ -6,21 +6,7 @@ import threading
 import json
 from model import Projects, Queue
 
-# TODO: implement plugins em plugins.json configuration file
-
-plugins = {
-    "imap": {
-        "image": "gilleslamiral/imapsync",
-        "logdir": "/LOG_imapsync",
-        "entrypoint": "/usr/bin/imapsync"
-    },
-    "zimbra": {
-        "image": "marangoni/zmzsync",
-        "logdir": "/LOG_zmzsync",
-        "entrypoint": "/usr/bin/zmzsync"
-    }
-}
-
+plugins = json.load(open('config.json'))['plugins']
 
 class tasks():
     """Migration Tasks Manager.

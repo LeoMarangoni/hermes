@@ -1,8 +1,15 @@
 #!/usr/bin/python
 """Execute this to start application."""
+import json
 from flask import Flask, render_template
 from views import ProjectsAPI, AccountsAPI, QueueAPI
 from tasks import tasks
+
+apiconfig = json.load(open('config.json'))['apiconfig']
+print apiconfig
+for i in apiconfig:
+    print i
+    print apiconfig[i]
 
 app = Flask(__name__)
 
@@ -53,4 +60,7 @@ def index():
 
 if __name__ == '__main__':
     task = tasks()
-    app.run(debug=False, host="127.0.0.1", port=5500, threaded=True)
+    app.run(debug=apiconfig['debug'],
+            host=apiconfig['host'],
+            port=apiconfig['port'],
+            threaded=apiconfig['threaded'])

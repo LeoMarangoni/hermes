@@ -1,10 +1,13 @@
 """Database manipulation module."""
+import json
 from flask import Flask
 from flask_mongoengine import MongoEngine
 
+dbconfig = json.load(open('config.json'))['dbconfig']
+
 app = Flask(__name__)
 
-app.config['MONGODB_SETTINGS'] = {"db": "hermesdb"}
+app.config['MONGODB_SETTINGS'] = dbconfig
 
 db = MongoEngine(app)
 
@@ -40,7 +43,8 @@ class ProjectInfo(db.EmbeddedDocument):
     meta = {'queryset_class': CustomFilters}
     name = db.StringField()
     status = db.StringField(default="idle")
-    protocol = db.StringField(choices=["imap", "zimbra"])
+    protocol = db.StringField(choices=["imap", "zimbra"],
+                              required=True)
     threads = db.IntField(default=1)
 
 
