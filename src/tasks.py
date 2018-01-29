@@ -4,9 +4,8 @@ import requests
 import time
 import threading
 import json
+from config import plugins
 from model import Projects, Queue
-
-plugins = json.load(open('config.json'))['plugins']
 
 class tasks():
     """Migration Tasks Manager.

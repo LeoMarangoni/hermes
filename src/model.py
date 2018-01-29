@@ -1,9 +1,8 @@
 """Database manipulation module."""
 import json
+from config import dbconfig
 from flask import Flask
 from flask_mongoengine import MongoEngine
-
-dbconfig = json.load(open('config.json'))['dbconfig']
 
 app = Flask(__name__)
 

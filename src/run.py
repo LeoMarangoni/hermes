@@ -1,15 +1,10 @@
 #!/usr/bin/python
 """Execute this to start application."""
 import json
+from config import apiconfig
 from flask import Flask, render_template
 from views import ProjectsAPI, AccountsAPI, QueueAPI
 from tasks import tasks
-
-apiconfig = json.load(open('config.json'))['apiconfig']
-print apiconfig
-for i in apiconfig:
-    print i
-    print apiconfig[i]
 
 app = Flask(__name__)
 
