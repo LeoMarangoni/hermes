@@ -49,7 +49,7 @@ class ProjectInfo(db.EmbeddedDocument):
 
 class Projects(db.Document):
     info = db.EmbeddedDocumentField(ProjectInfo, default=ProjectInfo)
-    configs = db.ListField()
+    configs = db.DynamicField()
     accounts = db.EmbeddedDocumentListField(Accounts)
 
 

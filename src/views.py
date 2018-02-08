@@ -146,17 +146,29 @@ class QueueAPI(MethodView):
     def param_parser(self, configs, credentials):
         command = ""
         parameters = []
-        if (credentials is not list):
-            credentials = [credentials]
+        cred = credentials
+        cred = [cred] if type(cred) is not list else cred
+        if (type(configs) is dict):
+            converted_configs = []
+            for key in configs.keys():
+                if (key[:1] != "_"):
+                    converted_configs.append({key: configs[key]})
+                elif (key[:2] != "__" and configs[key] not in ["", " "]):
+                    print key + configs[key]
+                    converted_configs.append(configs[key])
+                else:
+                    pass
+            configs = converted_configs
         parameters.extend(configs)
-        parameters.extend(credentials)
+        parameters.extend(cred)
         for parameter in parameters:
             if type(parameter) is not dict:
-                if (parameter != "" and parameter != " "):
+                if (parameter not in [""," "]):
                     command += "--%s " % (parameter)
             else:
                 for key in parameter.keys():
-                    command += "--%s %s " % (key, parameter[key])
+                    if (parameter[key] not in ["", " "]):
+                        command += "--%s %s " % (key, parameter[key])
         return (command)
 
     def queue_add(self, a_id, p_id, command, q=None):
