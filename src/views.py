@@ -10,12 +10,10 @@ class ProjectsAPI(MethodView):
     def get(self, id=None):
         if (id is None):
             p = Projects.objects()
-            envelop = "projects"
         else:
             p = Projects.objects(id=id).first()
-            envelop = "project"
         p = json.loads(p.to_json())
-        return jsonify({envelop: p})
+        return jsonify(p)
 
     def post(self):
         data = request.get_json()
@@ -57,13 +55,10 @@ class AccountsAPI(MethodView):
     def get(self, p_id, a_id=None):
         p = json.loads(Projects.objects(id=p_id).first().to_json())
         if (a_id is None):
-            envelop = "accounts"
-            print p
             a = p['accounts']
         else:
-            envelop = "account"
             a = p['accounts'][a_id]
-        return jsonify({envelop: a})
+        return jsonify(a)
 
     def post(self, p_id):
         data = request.get_json()
